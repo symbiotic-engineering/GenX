@@ -259,3 +259,11 @@ Key contributors include [Nestor A. Sepulveda](https://energy.mit.edu/profile/ne
 [Qingyu Xu](https://www.linkedin.com/in/qingyu-xu-61b3567b),
 [Jack Morris](https://www.linkedin.com/in/jack-morris-024b37121),
 [Sambuddha Chakrabarti](https://www.linkedin.com/in/sambuddha-chakrabarti-ph-d-84157318).
+
+import package genX
+Package activate Gen x
+package instantiate
+Package st to check proper packages
+cd to proper directory
+obtain gurobi licence and then pkg.build("Gurobi")
+include caserunner
