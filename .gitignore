@@ -2,6 +2,8 @@
 *.jl.*.cov
 *.jl.mem
 *.DS_Store
+desktop.ini
+.ipynb_checkpoints/
 Manifest.toml
 .Rhistory
 deps/deps.jl

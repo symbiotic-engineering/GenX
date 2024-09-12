@@ -1,0 +1,105 @@
+# Model years and planning parameters
+model_year: [2030, 2040, 2050]
+model_first_planning_year: 2020
+
+# Geographic model regions
+model_regions:
+  - Northwest
+  - CAISO
+  - ISONE_NYISO
+  - PJM
+  - Southeast
+
+# Region aggregations for combined areas
+region_aggregations:
+  ISONE_NYISO:
+    - ISONE
+    - NYISO
+
+# Demand scenarios
+demand_scenarios:
+  high_demand:
+    description: "High economic growth leading to increased energy demand"
+    growth_factor: 1.2
+    regional_growth_factors:
+      Northwest: 1.3
+      CAISO: 1.2
+      ISONE_NYISO: 1.1
+      PJM: 1.25
+      Southeast: 1.15
+  moderate_demand:
+    description: "Moderate economic growth with steady demand increase"
+    growth_factor: 1.1
+    regional_growth_factors:
+      Northwest: 1.15
+      CAISO: 1.1
+      ISONE_NYISO: 1.05
+      PJM: 1.1
+      Southeast: 1.08
+  low_demand:
+    description: "Low economic growth with minimal changes in demand"
+    growth_factor: 1.03
+    regional_growth_factors:
+      Northwest: 1.04
+      CAISO: 1.03
+      ISONE_NYISO: 1.02
+      PJM: 1.05
+      Southeast: 1.04
+
+# User supplied time series data paths
+extra_inputs:
+  distributed_gen_profiles_fn: 'extra_inputs/distributed_gen_profiles.csv'
+  demand_response_fn: 'extra_inputs/demand_response.csv'
+  regional_load_fn: 'extra_inputs/regional_load.csv'
+
+# Case definitions and scenario descriptions
+case_id_description_fn: 'case_id_descriptions.csv'
+scenario_descriptions_fn: 'scenario_descriptions.csv'
+
+# Generator configurations
+misc_gen_inputs_fn: 'extra_inputs/misc_gen_inputs.csv'
+capacity_limit_spur_fn: 'extra_inputs/capacity_limit_spur.csv'
+
+# Cost and technology mappings
+atb_new_gen: 
+  - [NaturalGas, CCAvgCF, Moderate, 500]
+  - [NaturalGas, CTAvgCF, Moderate, 100]
+  - [OffShoreWind, Class10, Moderate, 1]
+  - [UtilityPV, Class1, Moderate, 1]
+
+# Emission policies and demand segments
+emission_policies_fn: 'emission_policies.csv'
+demand_segments_fn: 'demand_segments.csv'
+
+# GenX settings and reserves
+genx_settings_folder: 'genx_settings/'
+reserves_fn: 'reserves.csv'
+
+# Existing generators data years and capacity columns
+eia_data_years: [2020]
+capacity_col: 'summer_capacity_mw'
+
+# Technology groups and operational settings
+num_clusters:
+  Natural Gas Fired Combined Cycle: 1
+  Natural Gas Fired Combustion Turbine: 1
+  Solar Photovoltaic: 1
+  Offshore Wind Turbine: 1
+
+group_technologies: true
+tech_groups:
+  combined_cycle:
+    - NGCC
+    - NGCT
+  renewable:
+    - Wind
+    - Solar
+regional_no_grouping: 
+  - CAISO
+
+PUDL_DB: ../WEC-DECIDER/data/pudl/pudl.sqlite
+PG_DB: ../WEC-DECIDER/data/pg/pg_misc_tables_efs.sqlite
+RESOURCE_GROUP_PROFILES: ../WEC-DECIDER/data/resource_profiles
+EFS_DATA: ../WEC-DECIDER/data/efs
+DISTRIBUTED_GEN_DATA: ../WEC-DECIDER/data/cambium
+# OPTIONAL: RESOURCE_GROUPS = YOUR_PATH_HERE
