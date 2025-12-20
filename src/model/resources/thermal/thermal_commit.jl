@@ -219,11 +219,11 @@ function thermal_commit!(EP::Model, inputs::Dict, setup::Dict)
         @constraints(EP,
             begin
                 # Minimum stable power generated per technology "y" at hour "t" > Min power
-                [y in THERM_COMMIT, t = 1:T],
+                cMinPowerThermal[y in THERM_COMMIT, t = 1:T],
                 EP[:vP][y, t] >= min_power(gen[y]) * cap_size(gen[y]) * EP[:vCOMMIT][y, t]
 
                 # Maximum power generated per technology "y" at hour "t" < Max power
-                [y in THERM_COMMIT, t = 1:T],
+                cMaxPowerThermal[y in THERM_COMMIT, t = 1:T],
                 EP[:vP][y, t] <=
                 inputs["pP_Max"][y, t] * cap_size(gen[y]) * EP[:vCOMMIT][y, t]
             end)
