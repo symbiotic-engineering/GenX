@@ -150,11 +150,11 @@ function hydro_res!(EP::Model, inputs::Dict, setup::Dict)
              inputs["pP_Max"][y, t] * EP[:eTotalCap][y])
 
             # Maximum ramp up and down
-            cRampUp[y in HYDRO_RES, t in 1:T],
+            cRampUpHydro[y in HYDRO_RES, t in 1:T],
             EP[:vP][y, t] + regulation_term[y, t] + reserves_term[y, t] -
             EP[:vP][y, hoursbefore(p, t, 1)] <=
             ramp_up_fraction(gen[y]) * EP[:eTotalCap][y]
-            cRampDown[y in HYDRO_RES, t in 1:T],
+            cRampDownHydro[y in HYDRO_RES, t in 1:T],
             EP[:vP][y, hoursbefore(p, t, 1)] - EP[:vP][y, t] - regulation_term[y, t] +
             reserves_term[y, hoursbefore(p, t, 1)] <=
             ramp_down_fraction(gen[y]) * EP[:eTotalCap][y]

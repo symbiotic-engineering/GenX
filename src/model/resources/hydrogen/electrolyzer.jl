@@ -120,12 +120,12 @@ function electrolyzer!(EP::Model, inputs::Dict, setup::Dict)
     @constraints(EP,
         begin
             ## Maximum ramp up between consecutive hours
-            [y in ELECTROLYZERS, t in 1:T],
+            cRampUpHydrogen[y in ELECTROLYZERS, t in 1:T],
             EP[:vUSE][y, t] - EP[:vUSE][y, hoursbefore(p, t, 1)] <=
             ramp_up_fraction(gen[y]) * EP[:eTotalCap][y]
 
             ## Maximum ramp down between consecutive hours
-            [y in ELECTROLYZERS, t in 1:T],
+            cRampDownHydrogen[y in ELECTROLYZERS, t in 1:T],
             EP[:vUSE][y, hoursbefore(p, t, 1)] - EP[:vUSE][y, t] <=
             ramp_down_fraction(gen[y]) * EP[:eTotalCap][y]
         end)
