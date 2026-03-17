@@ -187,7 +187,7 @@ function thermal_commit!(EP::Model, inputs::Dict, setup::Dict)
     ## For Start Hours
     # Links last time step with first time step, ensuring position in hour 1 is within eligible ramp of final hour position
     # rampup constraints
-    @constraint(EP, [y in THERM_COMMIT, t in 1:T],
+    @constraint(EP, cRampUp[y in THERM_COMMIT, t in 1:T],
         EP[:vP][y, t] - EP[:vP][y, hoursbefore(p, t, 1)] + regulation_term[y, t] +
         reserves_term[y, t]<=ramp_up_fraction(gen[y]) * cap_size(gen[y]) *
                              (EP[:vCOMMIT][y, t] - EP[:vSTART][y, t])
@@ -199,7 +199,7 @@ function thermal_commit!(EP::Model, inputs::Dict, setup::Dict)
                              min_power(gen[y]) * cap_size(gen[y]) * EP[:vSHUT][y, t])
 
     # rampdown constraints
-    @constraint(EP, [y in THERM_COMMIT, t in 1:T],
+    @constraint(EP, cRampDown[y in THERM_COMMIT, t in 1:T],
         EP[:vP][y, hoursbefore(p, t, 1)] - EP[:vP][y, t] - regulation_term[y, t] +
         reserves_term[y,
             hoursbefore(p, t, 1)]<=ramp_down_fraction(gen[y]) * cap_size(gen[y]) *
